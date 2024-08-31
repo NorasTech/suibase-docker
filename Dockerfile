@@ -60,6 +60,6 @@ EXPOSE 9000
 EXPOSE 44340
 EXPOSE 9001
 
-ENTRYPOINT ["./start.sh"]
+ENTRYPOINT ["/bin/bash"]
 
-CMD ["./start.sh"]
+CMD ["-c", "./start.sh && exec /bin/bash"]
