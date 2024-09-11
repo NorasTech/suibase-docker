@@ -13,6 +13,14 @@ It provides a local Sui network and local explorer to develop and test your Sui 
 
 Developing and testing Sui blockchain applications can be complex, requiring a local network setup, explorer, and various tools. Suibase Docker simplifies this process by providing a containerized environment that's easy to set up and use. It allows developers to focus on building their applications rather than managing infrastructure, making Sui development more accessible and efficient.
 
+## 🚰 Faucet
+
+Assuming that you've create a suibase container named `suibase`, you can use the faucet to get some testnet Sui coins.
+
+```bash
+docker exec -ti suibase localnet faucet <address>
+```
+
 ---
 
 ## Suibase
