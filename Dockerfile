@@ -51,7 +51,7 @@ ENV config=${HOME}/suibase/workdirs/localnet/suibase.yaml
 # if FORCE_TAG is set, then checkout to the specified tag
 RUN if [ -n "$FORCE_TAG" ]; then \
   echo '' >> ${config} \
-  echo 'force_tag: "${FORCE_TAG}" >> ${config}; \
+  echo 'force_tag: "${FORCE_TAG}" >> ${config};' \
   localnet update; \
   fi
 
