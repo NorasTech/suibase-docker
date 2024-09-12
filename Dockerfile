@@ -55,6 +55,8 @@ RUN if [ -n "$FORCE_TAG" ]; then \
   localnet update; \
   fi
 
+RUN localnet start && localnet stop
+
 # Expose ports
 EXPOSE 9000
 EXPOSE 44340
