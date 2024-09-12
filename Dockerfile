@@ -1,6 +1,7 @@
 FROM debian:stable-slim
 
 ARG USER=sui
+ARG FORCE_TAG
 
 # Set environment variables
 ENV USER=${USER}
@@ -30,12 +31,6 @@ WORKDIR ${HOME}
 RUN sudo apt-get update && sudo apt-get install -y \
   lsof curl git-all cmake gcc libssl-dev pkg-config libclang-dev libpq-dev build-essential
 
-# Install npm and sui-explorer-local
-RUN sudo apt-get install -y npm && \
-  sudo npm install -g n && \
-  sudo n stable && \
-  sudo npm install -g sui-explorer-local
-
 # Install Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
@@ -49,16 +44,21 @@ RUN cd ~
 RUN git clone https://github.com/chainmovers/suibase.git ./suibase
 RUN cd ./suibase && ./install
 
-# Run localnet for once then exit
-RUN localnet start && localnet stop
+RUN localnet create
 
-# Start sui-explorer-local for once then exit
-RUN sui-explorer-local start && sui-explorer-local stop
+ENV FORCE_TAG=${FORCE_TAG}
+ENV config=${HOME}/suibase/workdirs/localnet/suibase.yaml
+# if FORCE_TAG is set, then checkout to the specified tag
+RUN if [ -n "$FORCE_TAG" ]; then \
+  echo '' >> ${config} \
+  echo 'force_tag: "${FORCE_TAG}" >> ${config}; \
+  localnet update; \
+  fi
 
 # Expose ports
 EXPOSE 9000
 EXPOSE 44340
-EXPOSE 9001
+EXPOSE 44380
 
 ENTRYPOINT ["/bin/bash"]
 
