@@ -62,6 +62,7 @@ EXPOSE 9000
 EXPOSE 44340
 EXPOSE 44380
 
+## Start script
 ENTRYPOINT ["/bin/bash"]
 
 CMD ["-c", "./start.sh && exec /bin/bash"]
