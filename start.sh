@@ -5,7 +5,7 @@ if [ -n "$FORCE_TAG" ]; then \
   echo 'force_tag: "${FORCE_TAG}"' >> $config
   localnet update
 fi
-localnet start &! \
+localnet start &! && \
 # wait a while
-sleep 15
+sleep 15 && \
 tail -f ~/suibase/workdirs/common/logs/suibase-daemon.log
