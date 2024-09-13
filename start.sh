@@ -4,7 +4,7 @@ if [ -n "$FORCE_TAG" ]; then \
   echo '' >> $config
   echo 'force_tag: "${FORCE_TAG}"' >> $config
   localnet update
-fi
+fi \
 localnet start &! && \
 # wait a while
 sleep 15 && \
